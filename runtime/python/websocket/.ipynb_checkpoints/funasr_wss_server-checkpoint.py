@@ -81,7 +81,6 @@ model_asr = AutoModel(
     disable_pbar=True,
     disable_log=True,
 )
-
 # asr
 model_asr_streaming = AutoModel(
     model=args.asr_model_online,
@@ -297,7 +296,7 @@ async def async_vad(websocket, audio_in):
 async def async_asr(websocket, audio_in):
     if len(audio_in) > 0:
         # print(len(audio_in))
-        rec_result = model_asr.generate(input=audio_in, batch_size_s=300,**websocket.status_dict_asr)[0]
+        rec_result = model_asr.generate(input=audio_in, **websocket.status_dict_asr)[0]
         print("offline_asr, ", rec_result)
         # 需要在此处做声纹分离及声纹对比
         spk_name = "unknown"  # 默认未知说话人
